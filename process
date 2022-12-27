@@ -1,0 +1,32 @@
+//process.jsp
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import = "java.sql.*,java.util.*"%>
+
+<%
+    String fullname = request.getParameter("fullname");
+    String icno = request.getParameter("icno");
+    String address = request.getParameter("address");
+    String nophone = request.getParameter("nophone");
+    String email = request.getParameter("email");
+    String titlename = request.getParameter("titlename");
+    String awardname = request.getParameter("awardname");
+    
+try
+{
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/detail","root","");
+    Statement st = conn.createStatement();
+    
+    int i = st.executeUpdate("Insert into register (fullname, icno, address, nophone, email, titlename, awardname)" 
+            + "values('"+fullname+"','"+icno+"','"+address+"','"+nophone+"','"+email+"','"+titlename+"','"+awardname+"')");
+    out.println("data saved successfully");
+    out.println(fullname);
+}
+catch (Exception e)
+{
+    System.out.print(e);
+    e.printStackTrace();
+    out.print(e);
+}
+%>
